@@ -200,3 +200,68 @@ Brunch通过使用一些命令，如`brunch new`, `brunch watch --server`和`bru
 
 ![Image of Webpack](http://survivejs.com/webpack/images/webpack.png)
 
+你可以说webpack是一个比browserify更加强大的工具，然而，Browerify包含了众多小的工具，而webpack包含了一个核心功能，而且包含了许多功能性地接口，这个核心的功能可以通过特定的loaders和plugins进行扩展。
+
+webpack可以通过你项目中的`require`语句来生成你所需要的bundles。这个loader的机制可以使得CSS文件正常运行，并且支持`@import`语法。还有一些具体任务特定的插件，如压缩代码，本地化，热替换等等等等。
+
+给你一个示例看看，`require('style!css!./main.css')` 加载了*main.css*中的文件，并且通过CSS和style loaders从右向左进行处理。通过这个声明，将源文件提供给了webpack，更推荐使用webpack的配置来完成这一功能，下面是一个从[webpack官方指南](http://webpack.github.io/docs/tutorials/getting-started/)中得到的一个例子。
+
+```js
+var webpack = require('webpack');
+
+module.exports = {
+  entry: './entry.js',
+  output: {
+    path: __dirname,
+    filename: 'bundle.js'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css']
+      }
+    ]
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin()
+  ]
+};
+```
+
+这个配置是使用JavaScript编写的，他的可扩展性非常的好。
+
+这个配置的模型可能会使你感到一点迷惑，你可能会很难理解这里发生了什么，这在一些复杂的场景下显得更加突出，这些原因也是本书存在的价值。
+
+## 为什么是Webpack？
+
+我们为什么在Gulp和Grunt之上使用Webpack？webpack的强大之处在与处理复杂的打包问题，然而这个其他的工具也可能涉及。我推荐webpack是因为它支持热替换(HMR)，这是一个通过[babel-plugin-react-transform](https://github.com/gaearon/babel-plugin-react-transform)来支持的功能，我接下来会教你如何设置。
+
+### 热替换
+
+你可以已经对这些工具如[LiveReload](http://livereload.com/)或者[Browsersync](http://www.browsersync.io/)非常熟悉了，这些工具在你更改代码的时候可以自动的刷新页面。HMR把这个特性变得更加强大。在reactd的环境下，webpack允许程序维护自己的state,这听起来很简单，但是另开发过程产生了巨大的变化。
+
+需要注意的是，HMR在Browserify中通过[livereactload](https://github.com/milankinen/livereactload)进行实现，所以它不属于webpack的一个独有的特性。
+
+### 分解bundle
+
+除了HMR的特性，webpack的分解bundle的功能是十分强大的，他允许你通过多种的方式来分解bundles.你甚至可以在程序的执行过程中动态地加载他们。这种懒加载尤其在大的项目中十分有用，你可以加载你所需要的依赖在你需要的时候。
+
+### 资源哈希
+
+通过webpack，你非常容易的将hash注入到bundle名称中（如 app.d587bbd6e38337f5accd.js)，当源码发生改变后，你可以验证浏览器是否发生了对应的改变。在理想状况下，分解bundle的特性允许浏览器只刷新一小部分。
+
+### Loaders和Plugins
+
+这些小的功能叠加起来，不出意外的话，你可以完成所有你想要的功能。而且如果你遗忘了一些东西，你可以通过loaders和plugins完成这些功能。
+
+webpack有一个很复杂的学习曲线，即使是这样，这仍然是一个值得学习的工具，长时间学习它，你可以在今后的开发中节省大量的时间。如果你想了解更多与其他工具的对比，看一下[官方的对比](https://webpack.github.io/docs/comparison.html)。
+
+### 结论
+
+我希望通过本章帮助你了解到为什么webpack是一个值得学习的工具，他解决了许多web开发的通用问题，如果你很熟悉他，将会节省很多时间。
+
+在接下来的章节中，我们将会详细学习webpack，你将会学习如何完成一个基础的开发和一个基本的配置，再往后的章节你将会探索一些高级的用法。
+
+你应该讲webpack配合其他工具一起使用，因为他只是解决了打包的问题。当然，这些事情你不需要关心，使用*package.json*，`scripts`和webpack吧，我们来进行接下来的学习。
+
