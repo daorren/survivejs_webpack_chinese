@@ -1,8 +1,8 @@
 # 开始
 
-确保你正在使用最新版的[Node.js](http://nodejs.org/)，我推荐使用最近了LTS（长时间支持）版本，你要确保`node`和 `npm`可以正常在你的终端中使用。
+确保你正在使用最新版的[Node.js](http://nodejs.org/)，我推荐使用最新的LTS（长时间支持）版本，并且你还要确保`node`和 `npm`可以正常在你的终端中使用。
 
-完整的配置可以参照[GitHub](https://github.com/survivejs-demos/webpack-demo)，如果你不了解，可以作为参照。
+上面完整的配置可以参照[GitHub](https://github.com/survivejs-demos/webpack-demo)，如果你不了解，可以作为参照。
 
 ## 创建你的程序
 
@@ -14,9 +14,9 @@ cd webpack-demo
 npm init -y # -y 生成了 *package.json*
 ```
 
-你可以手动编写*package.json*来获得更高的灵活性，虽然我们可以通过*npm*来进行大部分的操作，但是我们还是需要了解文件的具体用法，你可以通过查看[package.json选项](https://docs.npmjs.com/files/package.json)来获得更多信息。
+你可以手动编写*package.json*来获得更高的灵活性，虽然我们可以通过*npm*来进行大部分的关于程序进本信息的配置，但是我们还是需要了解文件的具体用法，你可以通过查看[package.json选项](https://docs.npmjs.com/files/package.json)来获得更多信息。
 
-## 按照Webpack
+## 安装Webpack
 
 虽然webpack可以全局安装(`npm i webpack -g`)，我仍然推荐将其作为你项目的一个依赖，这个可以避免一些版本上的错误。
 
@@ -70,7 +70,7 @@ Output filename not configured.
 
 ## 配置资源
 
-因为你并不会厌倦`Hello world`，我们可以像这样设置一个模块
+我想你并不会厌倦`Hello world`的示例，我们可以像这样设置一个模块
 
 **app/component.js**
 
@@ -84,7 +84,7 @@ module.exports = function () {
 };
 ```
 
-下一步，我们需要对我们的应用配置一个入口，他简单的`require`了我们的模块然后在DOM上渲染。
+下一步，我们需要对我们的应用配置一个入口，他通过`require`，包含了我们的模块然后在DOM上渲染。
 
 **app/index.js**
 
@@ -98,7 +98,7 @@ document.body.appendChild(component());
 
 我们需要告诉webpack如何操作我们刚才的资源，我们创建了一个*webpack.config.js*文件，webpack和它的开发服务器可以检测到这些文件。
 
-为了让代码更好的可以维护，我们使用[html-webpack-plugin](https://www.npmjs.com/package/html-webpack-plugin)来为我们的程序生成*index.html*，*html-webpack-plugin*包装了我们的资源，在项目中安装它：
+为了让代码更好的可以维护，我们使用[html-webpack-plugin](https://www.npmjs.com/package/html-webpack-plugin)来为我们的程序生成*index.html*，在项目中安装它：
 
 ```sh
 npm i html-webpack-plugin --save-dev
@@ -136,7 +136,7 @@ module.exports = {
 };
 ```
 
-这个`entry`路径可以是一个相对的地址，这个时候可以使用[context](https://webpack.github.io/docs/configuration.html#context)可以配置查找的上下文。大部分的配置字段都希望有一个绝对的路径，我建议在任何时候都使用绝对路径来避免冲突。
+这个`entry`路径可以是一个相对的地址，这个时候可以使用[context](https://webpack.github.io/docs/configuration.html#context)来配置查找的上下文。大部分的配置字段最好都用一个绝对的路径，我建议在任何时候都使用绝对路径来避免冲突。
 
 如果你执行`node_modules/.bin/webpack`，你将会看到下面的输出：
 
@@ -178,7 +178,7 @@ Child html-webpack-plugin for "index.html":
 },
 ...
 ```
-你可以执行这些脚本通过*npm run*。例如，在这个例子中，使用*npm run build*，你将会得到与刚才同样的结果。这个生效是因为npm把*node_modules/.bin*这个文件路径加载了起来，所以我们才可以通过`"build": "webpack"`来达到`"node_modules/.bin/webpack"`的效果。
+你可以执行这些脚本通过*npm run*。例如，在这个例子中，使用*npm run build*，你将会得到与刚才同样的结果。这个生效是因为npm把*node_modules/.bin*这个文件路径加载了起来，所以我们才可以通过`"build": "webpack"`来达到执行`"node_modules/.bin/webpack"`同样的效果。
 
 ## 结论
 
