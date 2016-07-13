@@ -1,10 +1,10 @@
 # 浏览器自动刷新
 
-一些像[LiveReload](http://livereload.com/)和[Browsersync](http://www.browsersync.io/)允许当我们修改我们的应用的时候，浏览器自行刷新，他们甚至可以米面CSS变动时候的自动刷新。
+一些像[LiveReload](http://livereload.com/)和[Browsersync](http://www.browsersync.io/)的工具允许我们修改的应用的时候，浏览器自行刷新，他们甚至可以检测CSS变动时候的自动刷新。
 
-首先，我们需要开启webpack的*watch*模式，你可以通过`webpack --watch`来开启。一旦开启了这个功能，它将会检测文件发生的变化，然后自行编译打包。一个我们知道的工具*webpack-dev-server*在更高的层次上完成了这个功能。
+首先，我们需要开启webpack的*watch*模式，你可以通过`webpack --watch`来开启。一旦开启了这个功能，它将会检测文件发生的变化，然后自行编译打包。一个我们下面使用一个叫*webpack-dev-server*的工具在更高的层次上完成了这个功能。
 
-*webpack-dev-server*是一个运行在内存中的开发服务器。当你开发应用的时候，浏览器自行刷新。它仍然支持webpack的一个更高级的功能**热替换(HMR)**，他使得浏览器不会使得整个页面的状态都进行刷新，这提高了开发像React之类应用的效率。
+*webpack-dev-server*是一个运行在内存中的开发服务器。当你对应用做出改变的时候，浏览器会自行刷新。并且支持webpack的一个更高级的功能——**热替换(HMR)**，他使得浏览器不会整个页面的状态都进行刷新，这极大的提高了开发像React之类应用的效率。
 
 ## 开始使用*webpack-dev-server*
 
@@ -14,11 +14,11 @@
 npm i webpack-dev-server --save-dev
 ```
 
-通过上面的载入，你可以创建命令在`npm bin`指定的目录中，在哪里，你可以运行*webpack-dev-server*，最容易的方法是运行*webpack-dev-server --inline*。`--inline`其中了一个服务器的*inline*模式，可以重写结果的url地址。
+通过上面的载入，你可以将命令放置在`npm bin`指定的目录中，在那里，你可以运行*webpack-dev-server*，最容易的方法是运行*webpack-dev-server --inline*。`--inline`其中了一个服务器的*inline*模式，可以重写结果的url地址，并且直接自行刷新。
 
 ### 在项目中使用 webpack-dev-server
 
-在项目中使用*webpack-dev-server*，我们可以遵循之前的思路，在*package.json*中加入新的`scripts`
+在项目中使用*webpack-dev-server*，我们可以遵循之前的思路，在*package.json*文件中加入新的`scripts`。
 
 **package.json**
 
@@ -31,7 +31,7 @@ npm i webpack-dev-server --save-dev
 ...
 ```
 
-我们可以将`--inline`的部分写在webpack的配置里面，我建议你的npm *scripts* 要保持足够的简洁，将复杂的地方都给配置文件来完成，你可以把注意力直接集中到配置文件本身上来。
+我们可以将`--inline`的部分写在webpack的配置里面，我建议你的npm *scripts* 要保持足够的简洁，将复杂的地方都交给配置文件来完成，你可以把注意力直接集中到配置文件本身上来。
 
 如果你现在执行*npm run start*或者*npm start*，你可以在你的终端下看到这些内容，
 
@@ -52,15 +52,15 @@ Version: webpack 1.13.0
 
 ![image of hello](http://survivejs.com/webpack/images/hello_01.png)
 
-> 如果你没有在浏览器上看到任何东西，尝试着改变端口，可能之前的端口被占用了，你可以使用`netstat -na | grep 8080`来查看是否8080被占用。这个命令可能会根据你的平台而有相应的改变。
+> 如果你没有在浏览器上看到任何东西，尝试着改变端口，之前的端口可能被占用了，你可以使用`netstat -na | grep 8080`来查看8080端口是否被占用。这个命令可能会根据你的平台而有相应的改变。
 
 ## 配置热替换(HMR)
 
-热替换的功能处于*webpack-dev-server*的上层，它通过一个借口来替换当前的模块。例如，*style-loader*可以不刷新地更新CSS，通过HMR来替换CSS显得很容易，因为它不会包含任何的状态。
+热替换的功能处于*webpack-dev-server*的上层，它通过一个接口来替换当前的模块。例如，*style-loader*可以不刷新页面更新CSS，通过HMR来替换CSS显得很容易，因为它不会包含任何的状态。
 
 HMR也可以应用于JavaScript，但是考虑到JavaScript的状态，它比CSS要复杂。在*配置React*的章节中，我们将会讨论如何将它与React结合起来，并且你可以把这个思想利用在其他的地方。
 
-你可以通过`webpack-dev-server --inline --hot`来使用这个功能，`--hot`激活了HMR的模块通过一个为特定目的设计的插件，并且编写一个JavaScript文件接入的入口。
+你可以通过`webpack-dev-server --inline --hot`来使用这个功能，`--hot`通过一个为特定目的设计的插件来激活HMR的模块，并且编写一个JavaScript文件接入的入口。
 
 ## 为HMR定义配置
 
@@ -110,7 +110,7 @@ exports.devServer = function(options) {
 }
 ```
 
-我们可以将这段代码以后重用起来，然后在主配置里连接他，
+我们可以将这段代码以后重用起来，然后在主配置里连接它。
 
 **webpack.config.js**
 
@@ -143,7 +143,7 @@ switch(process.env.npm_lifecycle_event) {
 module.exports = validate(config);
 ```
 
-执行`npm start`之后浏览**localhost:8080**，试着去修改*app/component.js*，它应该会自动刷新浏览器，你要知道刷新JavaScript是复杂的，而CSS是比较简单的，你可以了解刷新css在下一章节。
+执行`npm start`之后浏览**localhost:8080**，试着去修改*app/component.js*，它应该会自动刷新浏览器，你要知道刷新JavaScript是复杂的，而CSS是比较简单的，你可以在下一章节了解到刷新css。
 
 ## 在Windows, Ubuntu和Vagrant上使用HMR
 
@@ -176,7 +176,7 @@ exports.devServer = function(options) {
 
 ## 从网络上连接开发服务器
 
-我们很有必要定制主机和端口号根据我们的环境（如windows上是`SET PORT=3000`, Unix上是`export PORT=3000`）,这个当你使用其他的设备来访问很重要，默认的配置在大多数情况下已经足够了。
+我们很有必要根据我们的环境（如windows上是`SET PORT=3000`, Unix上是`export PORT=3000`）来定制主机和端口号，这个当你使用其他的设备来访问时显得很重要，默认的配置在大多数情况下已经足够了。
 
 为了连接你的服务器，你需要知道你的机器上的ip，在Unix上使用`ifconfig | grep inet`，在Windows上，使用`ipconfig`。也可以通过一些如[node-ip](https://www.npmjs.com/package/node-ip)的npm包。特殊的在windows机器上你需要设置`HOST`来配置。
 
@@ -188,7 +188,7 @@ exports.devServer = function(options) {
 
 > [dotenv](https://www.npmjs.com/package/dotenv)允许你通过*.env*文件来定义你的环境变量，这个可以给你的开发带来一定的方便。
 
-> CLI与Node.js API有一定的[区别](https://github.com/webpack/webpack-dev-server/issues/106)，这就是为什么有一些人喜欢完全的使用Node.js的API。
+> CLI与Node.js API有一定的[区别](https://github.com/webpack/webpack-dev-server/issues/106)，这就是为什么有一些人喜欢完全的使用Node.js的API的原因。
 
 ## 结论
 
