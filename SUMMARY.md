@@ -1,13 +1,31 @@
 # Summary
 
-* [简介](chapter1.md)
-* [webpack与其他工具的比较](chapter2.md)
-* [使用webpack进行开发](chapter3.md)
-	* [开始](chapter3-1.md)
-	* [分解配置文件](chapter3-2.md)
-	* [浏览器自动刷新](chapter3-3.md)
-	* [自动刷新CSS](chapter3-4.md)
-	* [使用Sourcemaps](chapter3-5.md)
-* [使用webpack进行构建](chapter4.md)
-* [加载资源](chapter5.md)
-* [进阶](chapter6.md)
+* 1.[简介](chapter1.md)
+* 2.[webpack与其他工具的比较](chapter2.md)
+* 3.[使用webpack进行开发](chapter3.md)
+	* 3.1[开始](chapter3-1.md)
+	* 3.2[分解配置文件](chapter3-2.md)
+	* 3.3[浏览器自动刷新](chapter3-3.md)
+	* 3.4[自动刷新CSS](chapter3-4.md)
+	* 3.5[使用Sourcemaps](chapter3-5.md)
+* 4.[使用webpack进行构建](chapter4.md)
+	* 4.1最小化构建
+	* 4.2设置环境变量
+	* 4.3分解Bundle
+	* 4.4在文件名上添加hash
+	* 4.5清理构建
+	* 4.6分解CSS
+	* 4.7分析构建统计数据
+	* 4.8托管于Github pages
+* 5.[加载资源](chapter5.md)
+	* 5.1支持格式
+	* 5.2定义loader
+	* 5.3加载样式
+	* 5.4加载图片
+	* 5.5加载字体
+* 6.[进阶](chapter6.md)
+	* 6.1理解块
+	* 6.2在webpack中使用linting
+	* 6.3编写包
+	* 6.4编写loader
+	* 6.5配置React
