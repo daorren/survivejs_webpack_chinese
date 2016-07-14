@@ -14,13 +14,13 @@ cd webpack-demo
 npm init -y # -y 生成了 *package.json*
 ```
 
-你可以手动编写*package.json*来获得更高的灵活性，虽然我们可以通过*npm*来进行大部分的关于程序进本信息的配置，但是我们还是需要了解文件的具体用法，你可以通过查看[package.json选项](https://docs.npmjs.com/files/package.json)来获得更多信息。
+你可以手动编写*package.json*文件来获得更多的灵活性，虽然我们也可以通过*npm*来进行大部分间接地配置该文件，但是我们还是需要了解该文件的具体用法，你可以通过查看[package.json选项](https://docs.npmjs.com/files/package.json)来获得更多信息。
 
 ## 安装Webpack
 
 虽然webpack可以全局安装(`npm i webpack -g`)，我仍然推荐将其作为你项目的一个依赖，这个可以避免一些版本上的错误。
 
-这个项目应该与**持续集成（CI）**更好地结合起来，一个持续集成系统可以本地安装依赖，编译并且使用，最终之间推送结果到服务器上。
+这个项目应该与**持续集成（CI）**更好地结合起来，一个持续集成系统可以本地安装依赖，编译并且使用，把最终结果推送到服务器上。
 
 安装一个Webpack到你的项目，执行
 
@@ -28,11 +28,11 @@ npm init -y # -y 生成了 *package.json*
 npm i webpack --save-dev # 或者使用 -D 作为缩写。
 ```
 
-你应该看到webpack在你的*package.json*中的`devDependencies`中，这时候，webpack被安装到了本地的*node_modules*目录下，并且npm为其生成了一个可以执行的entry。
+你应该看到webpack在你的*package.json*中的`devDependencies`字段中，这时候，webpack被安装到了本地的*node_modules*目录下，并且npm为其生成了一个可以执行的入口文件。
 
 ## 执行webpack
 
-你可以通过使用`npm bin`来查看可执行文件的路径，大多数情况下，他应该存在于*./node_modules/.bin*， 。尝试在这个路径执行webpack通过`node_modules/.bin/webpack`。
+你可以通过使用`npm bin`来查看可执行文件的路径，大多数情况下，他应该存在于*./node_modules/.bin*目录下， 。尝试在这个路径执行webpack通过`node_modules/.bin/webpack`。
 
 当你执行过上面片段之后，你应该看到一个版本，一个接口导航的地址和一个很长的参数说明。我们不需要使用其中的大多数，但是我们可以知道这个工具已经被正确执行了。
 
@@ -84,7 +84,7 @@ module.exports = function () {
 };
 ```
 
-下一步，我们需要对我们的应用配置一个入口，他通过`require`，包含了我们的模块然后在DOM上渲染。
+下一步，我们需要对我们的应用配置一个入口，他通过`require`，包含了我们的刚才的模块然后在DOM上渲染。
 
 **app/index.js**
 
@@ -96,9 +96,9 @@ document.body.appendChild(component());
 
 ## 配置webpack
 
-我们需要告诉webpack如何操作我们刚才的资源，我们创建了一个*webpack.config.js*文件，webpack和它的开发服务器可以检测到这些文件。
+我们需要告诉webpack如何操作我们刚才的资源，我们创建了一个*webpack.config.js*文件，webpack和它的开发服务器（webpack-dev-server）可以检测到这个文件。
 
-为了让代码更好的可以维护，我们使用[html-webpack-plugin](https://www.npmjs.com/package/html-webpack-plugin)来为我们的程序生成*index.html*，在项目中安装它：
+为了让代码可以更好的维护，我们使用[html-webpack-plugin](https://www.npmjs.com/package/html-webpack-plugin)来为我们的程序生成*index.html*，在项目中安装它：
 
 ```sh
 npm i html-webpack-plugin --save-dev
@@ -136,7 +136,7 @@ module.exports = {
 };
 ```
 
-这个`entry`路径可以是一个相对的地址，这个时候可以使用[context](https://webpack.github.io/docs/configuration.html#context)来配置查找的上下文。大部分的配置字段最好都用一个绝对的路径，我建议在任何时候都使用绝对路径来避免冲突。
+这个`entry`路径可以是一个相对的地址，这个时候可以使用[context](https://webpack.github.io/docs/configuration.html#context)字段来配置查找的上下文。大部分的配置字段最好都用一个绝对的路径，我建议在任何时候都使用绝对路径来避免冲突。
 
 如果你执行`node_modules/.bin/webpack`，你将会看到下面的输出：
 
@@ -163,11 +163,11 @@ Child html-webpack-plugin for "index.html":
 - `Child html-webpack-plugin for "index.html":` 这个是插件的输出，在这个例子中是*html-webpack-plugin*的输出。
 - `+ 3 hidden modules`告诉你webpack生成的东西，在`node_modules`目录下，你可以使用`webpack --display-modules`展现详细的信息，也可以参照[Stack Overflow](https://stackoverflow.com/questions/28858176/what-does-webpack-mean-by-xx-hidden-modules)来查看更多的解释。
 
-观察`build/`下面生成的内容，如果你观察仔细，你会发现这些内容就是webpack打包出来的内容，你可以通过打开`build/index.html`文件来运行，在OS X的环境下，通过`open ./build/index.html`
+观察`build/`下面生成的内容，如果你观察仔细，你会发现这些内容就是webpack打包出来的内容，你可以通过打开`build/index.html`文件来运行，在OS X的环境下，通过`open ./build/index.html`来打开。
 
 ## 添加一个打包的快捷方式
 
-通过执行`node_modules/.bin/webpack`的命令来执行webpack看起来有点多余，我们可以解决这个问题。我们可以通过npm和*package.json*作为一个任务执行器来做一些如下的配置。
+通过执行`node_modules/.bin/webpack`的命令来执行webpack看起来有点多余，我们可以解决这个问题。我们可以通过npm和*package.json*作为一个task runner, 让我们来做一些如下的配置。
 
 **package.json**
 
