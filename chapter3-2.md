@@ -1,8 +1,8 @@
 # 分解配置文件
 
-最开始的时候，webpack的配置文件可以包含在一个单独的文件中，但是随着程序的增长，你可能需要分解这个配置才更好地对它进行管理。你很有必要将他们根据环境来进行分类，然后你就很好的控制了打包后的内容。如何的分类并没有绝对正确的方法，但是一般有下面几条，
+最开始的时候，webpack的配置文件可以包含在一个单独的文件中，但是随着程序复杂性的增加，你可能需要分解这个配置才可以更好地对它进行管理。根据已有经验，你很有必要将他们根据运行环境来进行分类，然后你就很好的针对不同的运行环境来构建不同的包。如何的分类并没有绝对正确的方法，但是一般有下面几个方法：
 
-- 在多个文件中维护配置，通过Webpack的`--config`选项来连接，共享配置通过模块间的imports。你可以在[webpack/react-starter](https://github.com/webpack/react-starter)这个项目中看到具体的使用。
+- 在多个文件中维护配置，通过Webpack的`--config`选项来连接，共同的配置通过模块间的imports。你可以在[webpack/react-starter](https://github.com/webpack/react-starter)这个项目中看到具体的使用。
 - 将配置放入一个库中，示例[HenrikJoreteg/hjs-webpack](https://github.com/HenrikJoreteg/hjs-webpack)
 - 维护一个文件的配置，然后设立分支。通过*npm*的脚本（如`npm run test`）来决定使用哪个配置。npm在他的环境变量中设置了这些信息，你可以匹配他们来做你想做的事情。
 
