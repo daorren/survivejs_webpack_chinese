@@ -1,6 +1,6 @@
 # 自动刷新CSS
 
-在本节中我们将会讨论如何使得CSS在我们的项目中自动刷新，一个很简洁的事情是，webpack在这个场景中不需要强制性的全部刷新，并且，我们可以做一些更智能的事情。
+在本节中我们将会讨论如何让我们项目中的CSS自动刷新，很容易想到的是，webpack在这个场景中不需要强制性的全部刷新，并且，我们可以做一些更智能的事情。
 
 ## 加载CSS
 
@@ -10,7 +10,7 @@
 npm i css-loader style-loader --save-dev
 ```
 
-我们现在拥有了需要的loaders，接下来，我们需要将他们与webpack连接起来。
+我们现在拥有了需要的loaders，接下来，我们需要它他们与webpack连接起来。
 
 **libs/part.js**
 
@@ -31,7 +31,7 @@ exports.setupCSS = function(paths) {
 }
 ```
 
-我们需要将其与我们的主配置文件连接，
+我们需要将其与我们的主配置文件连接起来
 
 **webpack.config.js**
 
@@ -55,13 +55,13 @@ switch(process.env.npm_lifecycle_event) {
 module.exports = validate(config);
 ```
 
-这个配置文件告诉我们凡是以`.css`结尾的文件都将会传入到给定的loader中，`test`字段并没有匹配到js文件，这些loaders是从右向左执行的。
+这个配置文件告诉我们凡是以`.css`结尾的文件都将会传入到给定的loader中，`test`字段并没有匹配到js文件，并且这些loaders是从右向左执行的。
 
-在这个例子中*css-loader*首先被执行，接着是*style-loader*。*css-loader*可以处理css文件中的`@import`和`url`语句，*style-loader*可以处理JavaScript中的`require`语句，就想类似于Sass和LESS一样的CSS预处理器。
+在这个例子中*css-loader*首先被执行，接着是*style-loader*。其中*css-loader*可以处理css文件中的`@import`和`url`语句，*style-loader*可以处理JavaScript中的`require`语句，就想类似于Sass和LESS一样的CSS预处理器。
 
-> loaders作用于将一些资源转换为另一些资源，loaders直接可以被串行化，就想Unix中的piping一样，你可以参照文章[什么是loaders](http://webpack.github.io/docs/using-loaders.html)，和[loaders列表](http://webpack.github.io/docs/list-of-loaders.html)。
+> loaders的作用是将一些资源转换为另一些资源，loaders可以被串行化，就想Unix中的piping一样，你可以参照文章[什么是loaders](http://webpack.github.io/docs/using-loaders.html)，和[loaders列表](http://webpack.github.io/docs/list-of-loaders.html)来进一步了解。
 
-> 如果`include`字段没有设置，webpack将转化项目中所有符合的文件，这极大地降低了性能，所以，在配置loaders的时候，配置`include`字段是非常必要的。当然，还有一个`exclude`字段用于排除相关文件。
+> 如果`include`字段没有设置，webpack将转化项目中所有符合的文件，这极大地降低了性能，所以，在配置loaders的时候，配置`include`字段是非常必要的。当然，还有一个`exclude`字段用于排除相关文件，不过我推荐使用`include`来指定文件。
 
 ## 初始化CSS
 
@@ -94,7 +94,7 @@ require('./main.css');
 
 ## 理解CSS范围和CSS组件
 
-当你使用这种方式来引用了一个CSS文件，webpack将会在你引用的地方将样式打包进这个文件的bundle中。假设你在使用*style-loader*，webpack将把他包含在html的`<style>`标签中，这意味着默认情况下这个样式的默认范围就是全局的。
+当你使用这种方式来引用了一个CSS文件，webpack将会在你引用的位置将样式打包进这个文件的bundle中来。假设你在使用*style-loader*，webpack将把他包含在html的`<style>`标签中，这意味着默认情况下这个样式的默认范围就是全局的。
 
 特殊的，你可以使用[CSS Modules](https://github.com/css-modules/css-modules)来定义非全局的CSS。webpack的CSS loader支持这个特性，需要你通过`css?modules`来激活这个功能，然后将你的全局css通过`:global(body){ ... }`来进行声明。
 
