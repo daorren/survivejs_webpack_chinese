@@ -126,3 +126,11 @@ const config = {
 ## 为样式文件的Sourcemaps
 
 你可以通过一个query参数使用样式的Sourcemap文件。就想*css-loader*,*sass-loader*,*less-loader*，除了一个`?sourceMap`（例如`css?sourceMap`）
+
+但是并没有这么简单，*css-loader*的官方文档建议我们进行css声明的时候使用官方文档，使用`output.publicPath`来替代server url。
+
+## 结论
+
+使用sourcemap可以给我们的开发带来巨大的方便，它可以在从打包之后的代码贯穿到原始代码，他还可以用于生产过程中，可以方便的让你进行调试。
+
+我们的打包配置目前还没有进行得很完善，接下来我们会讨论许多与打包相关的技术。
